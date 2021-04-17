@@ -29,5 +29,11 @@ const waitList = []
 //html display routes:
 
 // root: display home.html
+
+app.get("/", sendFile("./home.html"))
 // "/reserve": display reserve.html
+app.get("/reserve", sendFile("./reserve.html"))
 // "/tables": display tables.html
+app.get("/tables", sendFile("./tables.html"))
+
+module.exports = {Reservation, reservations}
