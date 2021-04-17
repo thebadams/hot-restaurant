@@ -11,7 +11,7 @@ class Reservation{
         this.id = id,
         this.phone = phone,
         this.email = email,
-        this.routeName = //to lowercase logic
+        this.routeName = this.name.replace(/\s/g, '').toLowerCase()
     }
 }
 
