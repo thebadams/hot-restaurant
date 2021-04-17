@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Reservation Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="text-center">
+                <span class="fa fa-fire"></span> Hot Restuarant
+            </h1>
+            <hr />
+            <h3 class="text-center">Make your reservation</h3>
+            <br>
+            <div class="text-center">
+                <a href="/tables">
+                    <button class="btn btn-primary btn-lg">
+                        <span class="fa fa-list-alt"></span> View Tables
+                    </button>
+                </a>
+                <a href="/">
+                    <button class="btn btn-light btn-lg">
+                        <span class="fa fa-home"></span>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Table Reservation</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" role="form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phoneNumber">Phone Number</label>
+                            <input type="text" class="form-control" id="phoneNumber" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="text" class="form-control" id="email" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="uniqueID">Unique ID</label>
+                            <input type="text" class="form-control" id="uniqueID" />
+                        </div>
+                    </form>
+                    <br />
+                    <button type="submit" class="btn btn-primary btn-md" id="add-btn">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p>
+                <a href "">Api Table Link</a>
+                |
+                <a href "">Api Wait List</a>
+            </p>
+        </div>
+    </footer>
+    <script>
+
+        class Reservation {
+                constructor(name, id, phone, email) {
+                    this.name = name,
+                        this.id = id,
+                        this.phone = phone,
+                        this.email = email,
+                        this.routeName = this.name.replace(/\s/g, '').toLowerCase()
+                }
+            }
+
+        const nameEl = document.querySelector("#name");
+            const emailEl = document.querySelector("#email");
+            const phoneNumEl = document.querySelector("#phoneNumber");
+            const uniqueIDEl = document.querySelector("#uniqueID");
+            const addBtnEl = document.querySelector("#add-btn");
+
+            addBtnEl.addEventListener("click", () => {
+                nameVal = nameEl.value.trim()
+                emailVal = emailEl.value.trim()
+                phoneNumVal = phoneNumEl.value.trim()
+                uniqueIDVal = uniqueIDEl.value.trim()
+                let reservation = new Reservation(nameVal, uniqueIDVal, phoneNumVal, emailVal)
+                addReservation(reservation)
+
+            })
+
+            function addReservation(reservation) {
+                    fetch(tablesURL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(reservation),
+                    })
+                        .then((response) => response.json())
+                        .then((data) => console.log(data))
+                }
+    </script>
+</body>

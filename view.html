@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Tables Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="text-center">
+                <span class="fa fa-fire"></span> Hot Restuarant
+            </h1>
+            <hr />
+            <h3 class="text-center">Current Reservations and Waiting List</h3>
+            <br>
+            <div class="text-center">
+                <a href="/reserve">
+                    <button class="btn btn-danger btn-lg">
+                        <span class="fa fa-credit-card"></span> Make Reservation
+                    </button>
+                </a>
+                <a href="/">
+                    <button class="btn btn-light btn-lg">
+                        <span class="fa fa-home"></span>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <!--Current Table Reservations-->
+            <div class="panel panel-default" id="reseveration-div">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Current Reservations</h4>
+                </div>
+                <div class="panel-body"></div>
+                <div class="well" id="tableWell-01">
+                    <h2>
+                        <span class="label label-primary">1</span>
+                        | nestor
+                    </h2>
+                </div>
+            </div>
+            <!--Waiting List-->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Waiting List</h4>
+                </div>
+                <div class="panel-body" id="waitlist-div">
+                    <div class="well">
+                        <h2>
+                            <span class="label label-primary">1</span>
+                            | brian
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<footer class="footer">
+    <div class="container">
+        <p>Control Panel</p>
+        <p>
+            <a href="#" id="clear">Clear Table</a>
+            |
+            <a href="/api/tables">API Table Link</a>
+            |
+            <a href="/api/waitlist">API Wait List</a>
+        </p>
+    </div>
+</footer>
+    <script>
+        tablesURL = "/api/tables";
+        waitListURL = "/api/waitlist";
+        function getTablesInfo() {
+                fetch(tablesURL, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then((response) => response.json())
+                    .then(createResElements(data))
+                    .catch((error) => {
+                        console.error(error);
+                    })
+            }
+
+            function getWaitListInfo() {
+                    fetch(waitListURL, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'applicaiton/json',
+                        },
+                    })
+                        .then((response) => {
+                            return response.json()
+                        })
+                        .then(createWaitListElements(data))
+                            
+                        .catch((error) => console.error(error))
+                }
+
+            getTablesInfo()
+            getWaitListInfo()
+
+            function createResElements(data){
+                const reservationDiv = document.querySelector("#reseveration-div")
+                data.forEach((el)=>{
+                    let divEl = document.createElement("div")
+                    divEl.classList.add("panel-body", "well")
+                    divEl.textContent = `| ${data.id}`
+                    reservationDiv.append(divEl)
+                })
+                
+
+            }
+
+            function createWaitListElements(data) {
+                    const waitListDiv = document.querySelector("#waitlist-div")
+                    data.forEach((el) => {
+                        let divEl = document.createElement("div")
+                        divEl.classList.add("panel-body", "well")
+                        divEl.textContent = `| ${data.id}`
+                        reservationDiv.append(divEl)
+                    })
+
+
+                }
+
+
+    </script>
+</body>
