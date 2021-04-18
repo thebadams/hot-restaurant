@@ -1,12 +1,10 @@
 {
   "name": "hot-restaurant",
   "version": "1.0.0",
-  "description": "A Web Application to Accept Restaurant Reservations",
+  "description": "A web application to take reservations and determine if a table is available or to make a waitlist",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "watch": "nodemon server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -20,8 +18,5 @@
   "homepage": "https://github.com/thebadams/hot-restaurant#readme",
   "dependencies": {
     "express": "^4.17.1"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.7"
   }
 }
